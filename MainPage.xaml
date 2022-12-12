@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskManager.MainPage"
+             xmlns:viewmodel="clr-namespace:TaskManager.ViewModel"
+             x:DataType="viewmodel:MainViewModel">
+
+    <Grid RowDefinitions="100, 40, 40, 40, 40, 40, *"
+          RowSpacing="12"
+          Padding="12">
+        <Label Text="Task Manager"
+               FontSize="35"
+               Grid.ColumnSpan="2"
+               HorizontalTextAlignment="Center"
+               TextColor="AntiqueWhite"></Label>
+        
+        
+        <Entry Placeholder="Task Name"
+               Grid.Row="1"
+               Text="{Binding Task.Name}"
+               Grid.ColumnSpan="2"/>
+
+        <Entry Placeholder="Task Description"
+               Grid.Row="2"
+               Text="{Binding Task.Description}"
+               Grid.ColumnSpan="2"/>
+
+        <Entry Placeholder="Time"
+               Grid.Row="3"
+               Text="{Binding Task.Time}"
+               Grid.ColumnSpan="2"/>
+
+        
+        <Grid  Grid.Row="4"
+               ColumnDefinitions=".60*, .20*, .20*">
+            <Label Text="Do you want to be reminded?"
+               FontSize="16"
+               Grid.Column="0"/>
+            <Button x:Name="Yesbtn"  
+                    Text="Yes"
+                   Command="{Binding YesCommand}"
+                Grid.Column="1"/>
+            <Button x:Name="Nobtn"  
+                Text="No"
+                 Command="{Binding NoCommand}"
+                Grid.Column="2"/>
+        </Grid>
+
+        <Button Text="Add"
+                Command="{Binding AddTaskCommand}"
+                Grid.Row="5"
+                Grid.ColumnSpan="2"
+                BackgroundColor="AntiqueWhite"/>
+
+        <CollectionView Grid.Row="6"
+                        ItemsSource="{Binding Hey}">
+            <CollectionView.ItemTemplate Grid.RowSpan="1">
+                <DataTemplate>
+                    <Grid ColumnDefinitions=".80*, .20*">
+                        <Label Text="{Binding .}"
+                               TextColor="White"
+                               Grid.Column="0"
+                               FontSize="14"/>
+                        <Button Text="Delete"
+                                Grid.Column="1"
+                                TextColor="White"
+                                BackgroundColor="Red"
+                                FontSize="20"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}},Path=DeleteCommand}"
+                                CommandParameter="{Binding .}"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>
